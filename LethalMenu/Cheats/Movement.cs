@@ -13,7 +13,6 @@ namespace LethalMenu.Cheats
             PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
             if (!(bool)StartOfRound.Instance || player == null) return;
             if (Settings.f_defaultMovementSpeed == -1f) Settings.f_defaultMovementSpeed = player.movementSpeed;
-  
 
             player.movementSpeed = Hack.SuperSpeed.IsEnabled() ? Settings.f_movementSpeed : Settings.f_defaultMovementSpeed;
         }
@@ -25,7 +24,6 @@ namespace LethalMenu.Cheats
             if (LethalMenu.localPlayer == null || LethalMenu.localPlayer.playerClientId != __instance.playerClientId) return;
             
             __instance.movementSpeed = Hack.SuperSpeed.IsEnabled() ? Settings.f_movementSpeed : Settings.f_defaultMovementSpeed;
-
         }
 
     }

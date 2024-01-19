@@ -33,7 +33,6 @@ namespace LethalMenu
         public static PlayerControllerB localPlayer;
         public static int selectedPlayer = -1;
 
-        
         public static string debugMessage = "";
         public static string debugMessage2 = "";
 
@@ -60,7 +59,7 @@ namespace LethalMenu
                 ThemeUtil.LoadTheme("Default");
                 LoadCheats();
                 DoPatching();
-                this.StartCoroutine(this.CollectObjects());                
+                this.StartCoroutine(this.CollectObjects());
             } catch
             (Exception e)
             {
@@ -77,7 +76,7 @@ namespace LethalMenu
 
         private void LoadCheats()
         {
-            
+
             try
             {
                 Settings.Changelog.ReadChanges();
@@ -121,7 +120,7 @@ namespace LethalMenu
                 {
                     if ((bool) StartOfRound.Instance && localPlayer != null && (localPlayer.isTypingChat || localPlayer.quickMenuManager.isMenuOpen || localPlayer.inTerminalMenu)) continue;
 
-                    
+
 
                     if (hack.HasKeyBind() && hack.GetKeyBind().wasPressedThisFrame && !hack.IsAnyHackWaiting()) hack.Execute();
                 }
@@ -144,8 +143,6 @@ namespace LethalMenu
         {
             try
             {
-                
-                
                 if (Event.current.type == EventType.Repaint)
                 {
                     VisualUtil.DrawString(new Vector2(5f, 2f), "Lethal Menu " + Settings.version + " By IcyRelic, and Dustin", Settings.c_primary,
@@ -174,12 +171,11 @@ namespace LethalMenu
 
 
                 menu.Draw();
-            }             
+            }
             catch (Exception e)
             {
                 debugMessage = "Msg: " + e.Message +"\nSrc: "+ e.Source +"\n" + e.StackTrace;
             }
-
         }
 
         public IEnumerator CollectObjects()
@@ -192,11 +188,11 @@ namespace LethalMenu
                 CollectObjects(doors);
                 CollectObjects(players, obj => !obj.playerUsername.StartsWith("Player #") && !obj.disconnectedMidGame);
                 CollectObjects(enemies);
-                CollectObjects(steamValves);        
+                CollectObjects(steamValves);
                 CollectObjects(allTerminalObjects);
                 CollectObjects(teleporters);
                 CollectObjects(interactTriggers);
-                CollectObjects(bigDoors, obj => obj.isBigDoor); 
+                CollectObjects(bigDoors, obj => obj.isBigDoor);
                 CollectObjects(doorLocks);
 
                 shipDoor = Object.FindObjectOfType<HangarShipDoor>();
@@ -218,8 +214,5 @@ namespace LethalMenu
             Loader.Unload();
             this.StopCoroutine(this.CollectObjects());
         }
-
-
-
     }
 }

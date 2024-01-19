@@ -17,7 +17,6 @@ namespace LethalMenu.Cheats
         {
             if(!Hack.Breadcrumbs.IsEnabled()) return;
 
-
             foreach(Vector3 crumb in crumbs)
             {
                 Vector3 screen;
@@ -25,7 +24,6 @@ namespace LethalMenu.Cheats
                 
                 VisualUtil.DrawString(new Vector2(screen.x, screen.y), crumbs.IndexOf(crumb).ToString(), true, true);
             }
-            
         }
 
         public override void Update()

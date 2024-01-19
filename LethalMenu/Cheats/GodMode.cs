@@ -37,7 +37,6 @@ namespace LethalMenu.Cheats
         {
             if (LethalMenu.localPlayer == null || playerObjectId != (int) LethalMenu.localPlayer.playerClientId) return true;
 
-
             return !Hack.GodMode.IsEnabled();
         }
 
@@ -46,7 +45,6 @@ namespace LethalMenu.Cheats
         public static bool PrefixGiantKill(int playerId)
         {
             if (LethalMenu.localPlayer == null || playerId != (int)LethalMenu.localPlayer.playerClientId) return true;
-
 
             return !Hack.GodMode.IsEnabled();
         }
@@ -57,7 +55,6 @@ namespace LethalMenu.Cheats
         {
             if (LethalMenu.localPlayer == null || playerId != (int)LethalMenu.localPlayer.playerClientId) return true;
 
-
             return !Hack.GodMode.IsEnabled();
         }
 
@@ -66,7 +63,6 @@ namespace LethalMenu.Cheats
         public static bool PrefixMaskedPlayerKill(int playerObjectId)
         {
             if (LethalMenu.localPlayer == null || playerObjectId != (int)LethalMenu.localPlayer.playerClientId) return true;
-
 
             return !Hack.GodMode.IsEnabled();
         }

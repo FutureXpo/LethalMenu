@@ -19,7 +19,6 @@ namespace LethalMenu
         OpenMenu,
         UnloadMenu,
         ToggleCursor,
-        
 
         /** Self Tab **/
         GodMode,
@@ -283,7 +282,6 @@ namespace LethalMenu
 
         public static readonly Dictionary<Hack, ButtonControl> KeyBinds = new Dictionary<Hack, ButtonControl>()
         {
-
             {Hack.OpenMenu, Keyboard.current.insertKey},
             {Hack.ToggleCursor, Keyboard.current.leftAltKey},
             {Hack.UnloadMenu, Keyboard.current.pauseKey},
@@ -293,8 +291,7 @@ namespace LethalMenu
         public static void Execute(this Hack hack, params object[] param)
         {
             if(hack.CanBeToggled()) hack.Toggle();
-            
-            
+
             if(Executors.TryGetValue(hack, out var method))
             {
                 if (method is Action action) action.Invoke();
@@ -324,7 +321,7 @@ namespace LethalMenu
         public static bool IsEnabled(this Hack hack)
         {
             return ToggleFlags[hack];
-        }   
+        }
 
         public static void Toggle(this Hack hack)
         {
@@ -343,7 +340,7 @@ namespace LethalMenu
         public static void SetKeyBind(this Hack hack, ButtonControl btn)
         {
             if (KeyBindIgnore.Contains(hack) || btn == null) return;
-            
+
 
             if (KeyBinds.ContainsKey(hack)) KeyBinds[hack] = btn;
             else KeyBinds.Add(hack, btn);
@@ -392,7 +389,7 @@ namespace LethalMenu
         public static void SetWaiting(this Hack hack, bool b)
         {
             if(b && !Waiting.Contains(hack)) Waiting.Add(hack);
-            
+
             if(!b && Waiting.Contains(hack)) Waiting.Remove(hack);
         }
 
@@ -408,7 +405,7 @@ namespace LethalMenu
     }
 
     public class HackExecutor
-    {       
+    {
         public static void ToggleAllESP()
         {
             Hack.ObjectESP.Execute();
@@ -439,7 +436,7 @@ namespace LethalMenu
                     doorLock.UnlockDoorSyncWithServer();
                     HUDManager.Instance.DisplayTip("Lethal Menu", "Door Unlocked");
                 }
-            } 
+            }
             else
             {
                 LethalMenu.turrets.ForEach(turret => turret.gameObject.GetComponent<TerminalAccessibleObject>().CallFunctionFromTerminal());
@@ -462,12 +459,8 @@ namespace LethalMenu
                         obj.CallFunctionFromTerminal();
                         HUDManager.Instance.DisplayTip("Lethal Menu", type + " ( " + obj.objectCode + " ) has been called from the terminal.");
                     }
-
                 }
-
-
             }
-
         }
         public static void ModExperience(int amt, ActionType type)
         {

@@ -35,6 +35,5 @@ namespace LethalMenu.Menu.Core
         }
 
         public virtual void DrawContent(int windowID) { }
-
     }
 }

@@ -6,7 +6,6 @@ namespace LethalMenu.Cheats
     [HarmonyPatch]
     internal class StrongHands : Cheat
     {
-
         public override void Update()
         {
             if (LethalMenu.localPlayer == null) return;

@@ -25,7 +25,6 @@ namespace LethalMenu.Menu.Core
         public float contentHeight;
         public int spaceFromTop = 60;
         public int spaceFromLeft = 10;
-        
 
         private Vector2 scrollPos = Vector2.zero;
 
@@ -52,15 +51,11 @@ namespace LethalMenu.Menu.Core
             menuTabs.Add(new EnemyTab());
             menuTabs.Add(new ServerTab());
 
-            
-            
             Resize();
 
             selectedTab = menuTabs.IndexOf(menuTabs.Find(x => x.name == "General"));
-            
         }
 
-        
         public void Resize()
         {
             windowRect.width = Settings.i_menuWidth;
@@ -119,7 +114,7 @@ namespace LethalMenu.Menu.Core
 
         private void DrawContent(int windowID)
         {
-
+            //set avatar as a transparent watermark behind the tabContent and make it square
             GUI.color = new Color(1f, 1f, 1f, 0.1f);
             GUIStyle watermark = new GUIStyle(GUI.skin.label) { fontSize = 20, fontStyle = FontStyle.Bold };
             string text = "Developed By IcyRelic, and Dustin";
@@ -154,7 +149,5 @@ namespace LethalMenu.Menu.Core
 
             GUI.DragWindow();
         }
-
-
     }
 }

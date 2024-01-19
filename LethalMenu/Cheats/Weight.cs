@@ -8,8 +8,6 @@ namespace LethalMenu.Cheats
     [HarmonyPatch]
     internal class Weight : Cheat
     {
-
-
         [HarmonyPostfix]
         [HarmonyPatch(typeof(PlayerControllerB), "Update")]
         public static void WeightUpdate(PlayerControllerB __instance)

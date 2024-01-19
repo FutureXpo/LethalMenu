@@ -9,13 +9,10 @@ namespace LethalMenu.Cheats
     {
         public override void Update()
         {
-            
             PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
             if (player == null) return;
             if (Settings.f_defaultJumpForce == -1f) Settings.f_defaultJumpForce = player.jumpForce;
             player.jumpForce = Hack.SuperJump.IsEnabled() ? Settings.f_jumpForce : Settings.f_defaultJumpForce;
-
-            
         }
 
         [HarmonyPostfix]

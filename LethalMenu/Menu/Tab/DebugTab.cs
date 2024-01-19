@@ -127,7 +127,6 @@ namespace LethalMenu.Menu.Tab
 
                     t.randomChancePercentage = 100;
                     t.Interact(LethalMenu.localPlayer.transform);
-
                 });
             }
             GUILayout.EndHorizontal();
@@ -137,12 +136,9 @@ namespace LethalMenu.Menu.Tab
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Execute"))
             {
-                
 
             }
             GUILayout.EndHorizontal();
-
-
 
             GUILayout.EndScrollView();
         }

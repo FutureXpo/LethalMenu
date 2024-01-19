@@ -29,13 +29,11 @@ namespace LethalMenu.Menu.Popup
             UI.Button("UnlockableManager.UnlockAll", () => unlockables.ForEach(x => Hack.UnlockUnlockable.Execute(x)));
             GUILayout.EndHorizontal();
 
-            
+
             UI.ButtonGrid(unlockables, (u) => u.GetItem().unlockableName, s_search, (u) => Hack.UnlockUnlockable.Execute(u), 3);
 
             GUILayout.EndScrollView();
             GUI.DragWindow();
         }
-
-
     }
 }

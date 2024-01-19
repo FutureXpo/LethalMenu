@@ -156,7 +156,6 @@ namespace LethalMenu.Menu.Tab
 
                 UI.Button("PlayerTab.MiniCam", action, btnText);
             }
-
         }
     }
 }

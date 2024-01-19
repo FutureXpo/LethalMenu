@@ -81,7 +81,6 @@ namespace LethalMenu.Menu.Tab
             );
         }
 
-
         private void TeleportContent()
         {
             UI.Header("SelfTab.TeleportTitle");

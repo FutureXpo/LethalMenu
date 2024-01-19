@@ -41,8 +41,6 @@ namespace LethalMenu.Menu.Tab
             UI.Hack(Hack.EjectEveryone, ["TrollTab.EjectEveryone", "General.HostTag"]);
 
             GUILayout.EndScrollView();
-
         }
-
     }
 }

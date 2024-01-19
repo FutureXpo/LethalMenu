@@ -60,7 +60,7 @@ namespace LethalMenu.Menu.Tab
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
-            
+
         }
 
         private void DrawList<T>(string title, IEnumerable<T> objects, Func<T, bool> conditional, Func<T, string> label, ref Vector2 scroll, ref int instanceID) where T : Object
@@ -94,7 +94,6 @@ namespace LethalMenu.Menu.Tab
 
         private void EnemyList()
         {
-            
             switch (selectedTab)
             {
                 case 0:
@@ -106,11 +105,7 @@ namespace LethalMenu.Menu.Tab
                     DrawList<EnemyType>("Enemy Types", GameUtil.GetEnemyTypes(), _ => false, e => e.name, ref scrollPos3, ref selectedEnemyType);
                     break;
             }
-
-                
         }
-        
-
 
         private void GeneralActions()
         {
@@ -124,8 +119,6 @@ namespace LethalMenu.Menu.Tab
 
             if (Hack.EnemyControl.IsEnabled())
                 UI.Button("EnemyTab.StopEnemyControl", () => { Hack.EnemyControl.SetToggle(false); });
-
-
         }
 
         private void EnemyActions()
@@ -158,7 +151,7 @@ namespace LethalMenu.Menu.Tab
 
             UI.Button("EnemyTab.KillEnemy", () => { enemy.Handle().Kill(); });
             UI.Button("EnemyTab.TargetSelectedPlayer", () => { enemy.Handle().TargetPlayer(selectedPlayer); });
-            
+
             if(enemy.Handle().HasInstaKill())
                 UI.Button("EnemyTab.KillSelectedPlayer", () => { enemy.Handle().KillPlayer(selectedPlayer); });
 
@@ -168,7 +161,7 @@ namespace LethalMenu.Menu.Tab
 
 
         }
-        
+
         private void EnemySpawnerContent()
         {
             if (!(bool)StartOfRound.Instance || LethalMenu.localPlayer == null) return;

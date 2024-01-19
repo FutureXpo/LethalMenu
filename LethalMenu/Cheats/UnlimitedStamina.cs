@@ -22,7 +22,6 @@ namespace LethalMenu.Cheats
         {
             if (LethalMenu.localPlayer == null || LethalMenu.localPlayer.playerClientId != __instance.playerClientId || !Hack.UnlimitedStamina.IsEnabled()) return;
 
-
             __instance.sprintMeter = 1f;
             if (__instance.sprintMeterUI != null) __instance.sprintMeterUI.fillAmount = 1f;
 
