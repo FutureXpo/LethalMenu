@@ -31,7 +31,7 @@ namespace LethalMenu.Types
         RomanticTable = 14,
         SignalTranslator = 17,
         LoudHorn = 18,
-        InverseYeleporter = 19,
+        InverseTeleporter = 19,
         JackOLantern = 20,
         WelcomeMat = 21,
         Goldfish = 22,

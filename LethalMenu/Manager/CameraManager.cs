@@ -21,8 +21,6 @@ namespace LethalMenu.Manager
                 
                 if(_camera == null || UsingBaseCamera()) _camera = GetBaseCamera();
 
-                
-
                 return _camera;
             }
             set

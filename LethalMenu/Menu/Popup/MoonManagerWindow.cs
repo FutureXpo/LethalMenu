@@ -37,8 +37,6 @@ namespace LethalMenu.Menu.Popup
                     .Select((id, index) => new { id, index })
                     .ToDictionary(item => item.id, item => item.index);
 
-
-
                 foreach (SelectableLevel x in StartOfRound.Instance.levels.OrderBy(x => order[x.levelID]))
                 {
                     if (x.levelID == StartOfRound.Instance.currentLevel.levelID) continue;

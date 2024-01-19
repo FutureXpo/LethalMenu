@@ -179,7 +179,6 @@ namespace LethalMenu
             {
                 debugMessage = "Msg: " + e.Message +"\nSrc: "+ e.Source +"\n" + e.StackTrace;
             }
-
         }
 
         public IEnumerator CollectObjects()
@@ -218,8 +217,5 @@ namespace LethalMenu
             Loader.Unload();
             this.StopCoroutine(this.CollectObjects());
         }
-
-
-
     }
 }

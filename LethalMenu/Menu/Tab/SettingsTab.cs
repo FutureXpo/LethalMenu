@@ -73,10 +73,9 @@ namespace LethalMenu.Menu.Tab
             GUILayout.EndVertical();
         }
 
-
         private void MenuContent()
         {
-            
+
             UI.Actions(
                 new UIButton("SettingsTab.ResetSettings", () => Settings.Config.RegenerateConfig()),
                 new UIButton("SettingsTab.SaveSettings", () => Settings.Config.SaveConfig()),
@@ -163,13 +162,11 @@ namespace LethalMenu.Menu.Tab
             GUILayout.EndHorizontal();
         }
 
-
-
         private void ColorContent()
         {
             UI.Header("SettingsTab.ColorsHeader");
 
-            UI.TextboxAction("SettingsTab.MenuBG", ref s_bgColor, @"[^0-9A-Za-z]", 8, 
+            UI.TextboxAction("SettingsTab.MenuBG", ref s_bgColor, @"[^0-9A-Za-z]", 8,
                 new UIButton("General.Set", () => SetColor(ref Settings.c_background, s_bgColor))
             );
             UI.TextboxAction("SettingsTab.MenuText", ref s_menuText, @"[^0-9A-Za-z]", 8,
@@ -225,9 +222,6 @@ namespace LethalMenu.Menu.Tab
             UI.Header("SettingsTab.TieredLootHeader", true);
             if (s_tierColorError != "") UI.Label(s_tierColorError, Settings.c_error);
 
-            
-
-
             UI.Button(["SettingsTab.TieredLoot", $"({GetTiersColored()})"], () => EditTierColors(), "General.Set");
             UI.Textbox("SettingsTab.Tiers", ref s_lootTiers, @"[^0-9,]");
             UI.Textbox("SettingsTab.Colors", ref s_lootTierColors, @"[^0-9A-Za-z,]");
@@ -236,7 +230,7 @@ namespace LethalMenu.Menu.Tab
 
             UI.TextboxAction("SettingsTab.CauseOfDeath", ref s_causeOfDeath, @"[^0-9A-Za-z]", 8,
                 new UIButton("General.Set", () => SetColor(ref Settings.c_causeOfDeath, s_causeOfDeath))
-            );   
+            );
         }
 
         private void KeybindContent()
@@ -245,7 +239,6 @@ namespace LethalMenu.Menu.Tab
             UI.Header("SettingsTab.Keybinds");
 
             if (s_kbError != "") UI.Label(s_kbError, Settings.c_error);
-
 
             GUILayout.BeginVertical();
             kbScrollPos = GUILayout.BeginScrollView(kbScrollPos);
@@ -263,8 +256,6 @@ namespace LethalMenu.Menu.Tab
 
                 string kb = hack.HasKeyBind() ? bind.GetType() == typeof(KeyControl) ? ((KeyControl)bind).keyCode.ToString() : bind.displayName : "None";
 
-                
-
                 GUILayout.Label(hack.ToString());
                 GUILayout.FlexibleSpace();
 
@@ -272,7 +263,7 @@ namespace LethalMenu.Menu.Tab
 
                 string btnText = hack.IsWaiting() ? "Waiting" : kb;
                 if (GUILayout.Button(btnText, GUILayout.Width(85))) KBUtil.BeginChangeKeyBind(hack);
-                
+
 
                 GUILayout.EndHorizontal();
             }
@@ -280,6 +271,50 @@ namespace LethalMenu.Menu.Tab
             GUILayout.EndVertical();
 
 
+        }
+
+        private async Task TryGetPressedKeyTask(Action<ButtonControl> callback)
+        {
+            await Task.Run(() =>
+            {
+                float startTime = Time.time;
+                ButtonControl btn = null;
+                do
+                {
+                    ButtonControl pressed = GetPressedBtn();
+
+
+                    if (pressed != null)
+                    {
+                        //if (!HackExtensions.KeyBindInUse(pressed))
+                            btn = pressed;
+                        //else kbError = "SettingsTab.BindInUseError";
+                    }
+
+                    if (Time.time - startTime > 15f) break;
+                } while (btn == null);
+
+                if (btn == null) return;
+
+                callback?.Invoke(btn);
+            });
+        }
+
+        private ButtonControl GetPressedBtn()
+        {
+            foreach (KeyControl key in Keyboard.current.allKeys)
+            {
+                if (key.wasPressedThisFrame) return key;
+            }
+
+            ButtonControl[] mouseButtons = new ButtonControl[] { Mouse.current.leftButton, Mouse.current.rightButton, Mouse.current.middleButton, Mouse.current.forwardButton, Mouse.current.backButton };
+
+            foreach (ButtonControl btn in mouseButtons)
+            {
+                if (btn.wasPressedThisFrame) return btn;
+            }
+
+            return null;
         }
 
         private void SetColor(ref RGBAColor color, string hexCode)
@@ -320,7 +355,6 @@ namespace LethalMenu.Menu.Tab
 
             return string.Join(",", tiers);
         }
-
     }
 }
 

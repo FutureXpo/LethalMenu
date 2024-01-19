@@ -79,11 +79,8 @@ namespace LethalMenu.Menu.Tab
             );
         }
 
-
         private void TeleportContent()
         {
-
-
             UI.Header("SelfTab.TeleportTitle");
 
             if (!(bool)StartOfRound.Instance) return;
@@ -109,7 +106,7 @@ namespace LethalMenu.Menu.Tab
             foreach (EntranceTeleport door in doors)
             {
                 string text = door.isEntranceToBuilding ? "SelfTab.TeleportEntrance" : "SelfTab.TeleportExit";
-                
+
                 UI.Hack(Hack.Teleport, $"{text} {c}", door.entrancePoint.position, false, true, door.isEntranceToBuilding);
                 c++;
             }

@@ -17,7 +17,6 @@ namespace LethalMenu.Cheats
         {
             return true;
             //return __instance.GetType() != typeof(GiftBoxItem) && Hack.UnlimitedPresents.IsEnabled();
-
         }
     }
 }

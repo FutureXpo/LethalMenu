@@ -12,17 +12,14 @@ using Random = UnityEngine.Random;
 
 namespace LethalMenu.Manager
 {
-
     public enum ActionType {
         Add = 0,
         Remove = 1,
         Set = 2
     }
+
     public class RoundHandler
     {
-
-        
-
         public static void ModCredits(int amount, ActionType type)
         {
             Terminal terminal = GetTerminal();
@@ -34,7 +31,6 @@ namespace LethalMenu.Manager
 
             terminal.SyncGroupCreditsServerRpc(newAmt, terminal.numberOfItemsInDropship);
         }
-
 
         public static void SetQuota(int amount)
         {
@@ -175,8 +171,6 @@ namespace LethalMenu.Manager
                 m.ChangeOwnershipOfProp(GameNetworkManager.Instance.localPlayerController.actualClientId);
 
                 m.Reflect().SetValue("previousPlayerHeldBy", alivePlayer);
-
-
 
                 bool factory = m.transform.position.y < LethalMenu.shipDoor.transform.position.y - 10f;
 

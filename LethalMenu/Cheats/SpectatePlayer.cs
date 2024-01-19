@@ -13,8 +13,6 @@ namespace LethalMenu.Cheats
 
     internal class SpectatePlayer : Cheat
     {
-
-
         //Spectate
         public static int spectatingPlayer = -1;
         private static Camera spectateCamera = null;
@@ -328,7 +326,5 @@ namespace LethalMenu.Cheats
 
             return StartOfRound.Instance.allPlayerScripts[camPlayer];
         }
-
-
     }
 }

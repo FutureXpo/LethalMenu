@@ -29,8 +29,6 @@ namespace LethalMenu
 
         protected void DrawLabel(Vector3 pos, string text, Color color, float distance)
         {
-
-
            VisualUtil.DrawString(new Vector2(pos.x, pos.y), text + "\n" + distance.ToString() + "m", color, true, true);
 
             /**GUIStyle style = Settings.GetLabelStyle(color);
@@ -48,5 +46,4 @@ namespace LethalMenu
         public virtual void Update() { }
         public virtual void FixedUpdate() { }
     }
-
 }

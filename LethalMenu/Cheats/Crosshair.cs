@@ -10,8 +10,6 @@ namespace LethalMenu.Cheats
     }
     internal class Crosshair : Cheat
     {
-        
-
         public override void OnGui()
         {
             if (!Hack.Crosshair.IsEnabled()) return;
@@ -36,8 +34,6 @@ namespace LethalMenu.Cheats
 
             VisualUtil.DrawLine(points[0], points[1], Settings.c_crosshair, Settings.f_crosshairThickness);
             VisualUtil.DrawLine(points[2], points[3], Settings.c_crosshair, Settings.f_crosshairThickness);
-            
-
         }
     }
 }

@@ -26,7 +26,6 @@ namespace LethalMenu.Menu.Core
         public float tabHeight;
         public int spaceFromTop = 45;
         public int spaceFromLeft = 10;
-        
 
         private Vector2 scrollPos = Vector2.zero;
 
@@ -53,14 +52,11 @@ namespace LethalMenu.Menu.Core
             menuTabs.Add(new EnemyTab());
             menuTabs.Add(new ServerTab());
 
-
             Resize();
 
             selectedTab = menuTabs.IndexOf(menuTabs.Find(x => x.name == "General"));
-            
         }
 
-        
         public void Resize()
         {
             windowRect.width = Settings.i_menuWidth;
@@ -119,12 +115,12 @@ namespace LethalMenu.Menu.Core
                 unlockableManagerWindow.Draw();
                 itemManagerWindow.Draw();
                 moonManagerWindow.Draw();
-            }            
+            }
         }
 
         private void DrawContent(int windowID)
         {
-
+            //set avatar as a transparent watermark behind the tabContent and make it square
             GUI.color = new Color(1f, 1f, 1f, 0.1f);
             GUIStyle watermark = new GUIStyle(GUI.skin.label) { fontSize = 30, fontStyle = FontStyle.Bold };
             string text = "Developed By IcyRelic";
@@ -133,12 +129,8 @@ namespace LethalMenu.Menu.Core
             GUI.Label(new Rect(windowRect.width - watermark.CalcSize(new GUIContent(text)).x - 10, windowRect.height - watermark.CalcSize(new GUIContent(text)).y - 10, watermark.CalcSize(new GUIContent(text)).x, watermark.CalcSize(new GUIContent(text)).y), text, watermark);
             GUI.color = Color.white;
 
-
-
-
             GUILayout.BeginHorizontal();
             GUILayout.BeginArea(new Rect(spaceFromLeft, spaceFromTop, tabWidth - spaceFromLeft, tabHeight));
-
 
             GUILayout.BeginVertical();
 
@@ -151,7 +143,6 @@ namespace LethalMenu.Menu.Core
             style.active.textColor = Settings.c_menuText.GetColor();
             style.fontSize = Settings.i_menuFontSize;
 
-
             for (int i = 0; i < menuTabs.Count; i++)
             {
                 if (menuTabs[i].name == "Debug" && !Settings.isDebugMode) continue;
@@ -159,12 +150,8 @@ namespace LethalMenu.Menu.Core
                 if (GUILayout.Button(menuTabs[i].name, style)) selectedTab = i;
             }
 
-
             GUILayout.EndVertical();
             GUILayout.EndArea();
-
-            
-
 
             GUILayout.BeginArea(new Rect(tabWidth + spaceFromLeft * 2, spaceFromTop, contentWidth, contentHeight));
 
@@ -174,12 +161,6 @@ namespace LethalMenu.Menu.Core
 
             GUILayout.EndArea();
             GUI.DragWindow(new Rect(0.0f, 0.0f, 10000f, 45f));
-
-
         }
-
-
-
-
     }
 }

@@ -37,11 +37,8 @@ namespace LethalMenu.Cheats
                 {
                     t.Reflect().SetValue("cooldownTime", 0.0f);
                     t.buttonTrigger.enabled = true;
-
                 });
         }
-
-        
 
         private IEnumerator TimeToHold()
         {

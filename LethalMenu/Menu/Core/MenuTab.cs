@@ -2,7 +2,6 @@
 
 namespace LethalMenu.Menu.Core
 {
-
     internal class MenuTab : MenuFragment
     {
         public string name;

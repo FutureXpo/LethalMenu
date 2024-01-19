@@ -81,7 +81,6 @@ namespace LethalMenu.Menu.Tab
 
             if (player == null || player.playerUsername.StartsWith("Player #") || player.disconnectedMidGame) return;
 
-
             string name = player.playerUsername;
 
             if (player.isPlayerDead && player.deadBody != null)
@@ -136,7 +135,6 @@ namespace LethalMenu.Menu.Tab
 
                 UI.Button("PlayerTab.MiniCam", action, btnText);
             }
-
         }
     }
 }

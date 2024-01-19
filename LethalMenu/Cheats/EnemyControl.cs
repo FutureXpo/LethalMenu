@@ -45,26 +45,13 @@ namespace LethalMenu.Cheats
                 CameraManager.GetBaseCamera().enabled = true;
                 CameraManager.ActiveCamera = CameraManager.GetBaseCamera();
             }
-
-            
-
         }
 
         public override void Update()
         {
             StopControl();
-
-            
-
-
             ControlEnemy();
-
-
         }
-
-
-        
-
 
         private void ControlEnemy()
         {

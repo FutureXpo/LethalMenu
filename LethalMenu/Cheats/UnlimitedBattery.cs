@@ -8,7 +8,6 @@ namespace LethalMenu.Cheats
         {
             if (!Hack.UnlimitedBattery.IsEnabled()) return;
 
-
             if(LethalMenu.localPlayer == null) return;
             foreach (GrabbableObject item in LethalMenu.localPlayer.ItemSlots)
             {
@@ -16,8 +15,6 @@ namespace LethalMenu.Cheats
 
                 item.insertedBattery.charge = 1f;
                 item.SyncBatteryServerRpc(100);
-
-               
             }
         }
     }

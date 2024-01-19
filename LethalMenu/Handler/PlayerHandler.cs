@@ -74,6 +74,7 @@ namespace LethalMenu.Handler
         }
 
         public void Spectate() => Cheats.SpectatePlayer.spectatingPlayer = (int)player.playerClientId;
+
         public void MiniCam() => Cheats.SpectatePlayer.camPlayer = (int)player.playerClientId;
 
         public void SpawnSpiderWebs(int count = 1)
@@ -112,8 +113,6 @@ namespace LethalMenu.Handler
 
         public PlayerHandler GetHandler(PlayerControllerB player) => new PlayerHandler(player);
     }
-
-
 
     public static class PlayerHandlerExtensions
     {

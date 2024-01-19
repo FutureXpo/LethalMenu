@@ -32,6 +32,5 @@ namespace LethalMenu.Cheats
             
             return true;
         }
-
     }
 }

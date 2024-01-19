@@ -19,8 +19,6 @@ namespace LethalMenu.Cheats
             player.nightVision.enabled = Hack.NightVision.IsEnabled() || player.isInsideFactory;
             player.nightVision.intensity = Hack.NightVision.IsEnabled() ? Settings.f_nvIntensity : Settings.f_defaultNightVisionIntensity;
             player.nightVision.range = Hack.NightVision.IsEnabled() ? Settings.f_nvRange : Settings.f_defaultNightVisionRange;
-            
-
         }
 
         [HarmonyPostfix]

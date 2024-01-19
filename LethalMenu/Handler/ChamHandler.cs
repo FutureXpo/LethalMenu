@@ -50,7 +50,6 @@ namespace LethalMenu.Handler
 
             if(@object == null) return renderers;
 
-            
             if (@object is GameObject) renderers.AddRange(((GameObject)@object).GetComponentsInChildren<Renderer>());
             if (@object is Component) renderers.AddRange(((Component)@object).GetComponentsInChildren<Renderer>());
             if (@object is DoorLock) renderers.AddRange(((DoorLock)@object).GetComponentsInParent<Renderer>());
@@ -87,15 +86,11 @@ namespace LethalMenu.Handler
             if (@object is HangarShipDoor) e = Settings.b_chamsShip;
             if (@object is BreakerBox) e = Settings.b_chamsBreaker;
 
-
             if(e && distance >= Settings.f_chamDistance) ApplyCham();
             else RemoveCham();
 
-            if (   (@object is GrabbableObject && ((GrabbableObject)@object).isHeld)
-                || (@object is SteamValveHazard && !((SteamValveHazard)@object).triggerScript.interactable)
-                
-            ) RemoveCham();
-
+            if ((@object is GrabbableObject && ((GrabbableObject)@object).isHeld)
+                || (@object is SteamValveHazard && !((SteamValveHazard)@object).triggerScript.interactable)) RemoveCham();
         }
 
         public void ApplyCham()
@@ -114,15 +109,13 @@ namespace LethalMenu.Handler
                     r.SetMaterials(Enumerable.Repeat(m_chamMaterial, r.materials.Length).ToList());
                     UpdateChamColor(r);
                 }
-
-            }); 
+            });
         }
 
         private void UpdateChamColor(Renderer r)
         {
             if(r == null || r.materials == null) return;
             r.materials.ToList().ForEach(m => m.SetColor(_color, Settings.c_chams.GetColor()));
-
         }
 
 
@@ -142,6 +135,7 @@ namespace LethalMenu.Handler
 
                 materials.Keys.ToList().FindAll(k => !keep.Contains(k)).ForEach(k => { materials.Remove(k); cnt++; }) ;
 
+                Debug.LogError("Cleaned up " + cnt + " materials");
             }
         }
     }

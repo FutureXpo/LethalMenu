@@ -307,7 +307,6 @@ namespace LethalMenu.Handler
                         ) forceDespawn = true;
 
             enemy.KillEnemyServerRpc(forceDespawn ? forceDespawn : despawn);
-            
         }
 
         public void Stun()
@@ -343,7 +342,6 @@ namespace LethalMenu.Handler
             HandleKillPlayerByType();
         }
 
-
         public static EnemyHandler GetHandler(EnemyAI enemy) => new(enemy);
     }
 
@@ -359,8 +357,6 @@ namespace LethalMenu.Handler
             bug.ChangeEnemyOwnerServerRpc(LethalMenu.localPlayer.actualClientId);
 
             LethalMenu.Instance.StartCoroutine(StealItems(bug));
-
-            
         }
 
         private static IEnumerator StealItems(HoarderBugAI bug)

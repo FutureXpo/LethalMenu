@@ -22,7 +22,6 @@ namespace LethalMenu.Cheats
             {
                 PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
 
-              
                 collider.enabled = false;
 
                 Vector3 vector3 = new Vector3();
@@ -36,10 +35,6 @@ namespace LethalMenu.Cheats
                 if (vector3.Equals(Vector3.zero)) return;
 
                 player.transform.position += vector3 * (Settings.f_noclipSpeed * Time.deltaTime);
-
-
-
-
             } 
             else collider.enabled = true;
         }

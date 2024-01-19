@@ -8,13 +8,10 @@ namespace LethalMenu.Cheats
     [HarmonyPatch]
     internal class ThroughWalls : Cheat
     {
-
         [HarmonyPostfix]
         [HarmonyPatch(typeof(PlayerControllerB), "LateUpdate")]
         public static void PlayerLateUpdate(PlayerControllerB __instance)
         {
-
-
             if (Hack.LootThroughWalls.IsEnabled() || Hack.InteractThroughWalls.IsEnabled())
             {
                 __instance.grabDistance = 10000f;
@@ -23,8 +20,6 @@ namespace LethalMenu.Cheats
                 if (Hack.InteractThroughWalls.IsEnabled()) mask = (LayerMask)LayerMask.GetMask("InteractableObject");
                 if (Hack.InteractThroughWalls.IsEnabled() && Hack.LootThroughWalls.IsEnabled()) mask = (LayerMask)LayerMask.GetMask("Props", "InteractableObject");
                 typeof(PlayerControllerB).GetField("interactableObjectsMask", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic).SetValue(__instance, mask.value);
-
-
             }
             else
             {

@@ -5,8 +5,6 @@ namespace LethalMenu.Menu.Tab
 {
     internal class GeneralTab : MenuTab
     {
-
-
         Vector2 scrollPos;
         private Texture2D avatar;
 
@@ -14,7 +12,6 @@ namespace LethalMenu.Menu.Tab
         {
             avatar = GetImage("https://icyrelic.com/img/Avatar2.jpg");
         }
-
 
         public override void Draw()
         {
@@ -38,7 +35,6 @@ namespace LethalMenu.Menu.Tab
             GUILayout.Label(intoText);
             GUILayout.EndHorizontal();
 
-
             GUILayout.Space(20);
 
             foreach (string line in Settings.Changelog.changes)
@@ -47,16 +43,9 @@ namespace LethalMenu.Menu.Tab
 
                 if (line.StartsWith("v")) style.fontStyle = FontStyle.Bold;
                 GUILayout.Label(line.StartsWith("v") ? "Changelog " + line : line, style);
-
-
             }
-
-
-
 
             GUILayout.EndScrollView();
         }
-
-
     }
 }

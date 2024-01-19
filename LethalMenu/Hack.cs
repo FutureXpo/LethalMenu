@@ -19,7 +19,6 @@ namespace LethalMenu
         OpenMenu,
         UnloadMenu,
         ToggleCursor,
-        
 
         /** Self Tab **/
         GodMode,
@@ -211,8 +210,6 @@ namespace LethalMenu
             {Hack.StrongHands, false},
             {Hack.Invisibility, false},
             {Hack.NoFallDamage, false},
-
-
         };
 
         private static readonly Dictionary<Hack, Delegate> Executors = new Dictionary<Hack, Delegate>()
@@ -272,7 +269,6 @@ namespace LethalMenu
 
         public static readonly Dictionary<Hack, ButtonControl> KeyBinds = new Dictionary<Hack, ButtonControl>()
         {
-
             {Hack.OpenMenu, Keyboard.current.insertKey},
             {Hack.ToggleCursor, Keyboard.current.leftAltKey},
             {Hack.UnloadMenu, Keyboard.current.pauseKey},
@@ -282,8 +278,7 @@ namespace LethalMenu
         public static void Execute(this Hack hack, params object[] param)
         {
             if(hack.CanBeToggled()) hack.Toggle();
-            
-            
+
             if(Executors.TryGetValue(hack, out var method))
             {
                 if (method is Action action) action.Invoke();
@@ -451,12 +446,8 @@ namespace LethalMenu
                         obj.CallFunctionFromTerminal();
                         HUDManager.Instance.DisplayTip("Lethal Menu", type + " ( " + obj.objectCode + " ) has been called from the terminal.");
                     }
-
                 }
-
-
             }
-
         }
         public static void ModExperience(int amt, ActionType type)
         {

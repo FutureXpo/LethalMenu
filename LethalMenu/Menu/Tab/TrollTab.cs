@@ -38,8 +38,6 @@ namespace LethalMenu.Menu.Tab
             UI.Hack(Hack.TeleportOneItem, "TrollTab.TeleportOneItem");
 
             GUILayout.EndScrollView();
-
         }
-
     }
 }

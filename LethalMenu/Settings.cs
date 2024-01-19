@@ -27,7 +27,7 @@ namespace LethalMenu
             set { Hack.OpenMenu.SetToggle(value);  }
         }
 
-        /* *    
+        /* *
          * Menu Settings
          * */
         public static int i_menuFontSize = 14;
@@ -47,7 +47,7 @@ namespace LethalMenu
         public static RGBAColor c_crosshair = new RGBAColor(255, 43, 43, 1f);
 
         //ESP Colors
-        
+
         public static RGBAColor c_objectESP = new RGBAColor(255, 255, 255, 1f);
         public static RGBAColor c_playerESP = new RGBAColor(0, 255, 0, 1f);
         public static RGBAColor c_enemyESP = new RGBAColor(255, 0, 0, 1f);
@@ -62,7 +62,7 @@ namespace LethalMenu
         public static RGBAColor c_breakerESP = new RGBAColor(255,0,116, 1f);
         public static RGBAColor c_chams = new RGBAColor(238, 111, 255, 0.1f);
 
-     
+
         //Other Colors
         public static RGBAColor c_error = new RGBAColor(221, 11, 11, 1f);
         public static RGBAColor c_deadPlayer = new RGBAColor(255, 0, 0, 1);
@@ -92,7 +92,7 @@ namespace LethalMenu
         public static bool b_disableSpectatorModels = true;
         public static bool b_useScrapTiers = false;
         public static bool b_VCDisplay = false;
-        
+
         public static CrosshairType ct_crosshairType = CrosshairType.Plus;
 
         public static bool b_chamsObject = false;
@@ -115,8 +115,8 @@ namespace LethalMenu
 
         public static int[] i_scrapValueThresholds = new int[] { 30,50,75,100 };
 
-        public static RGBAColor[] c_scrapValueColors = new RGBAColor[] 
-        { 
+        public static RGBAColor[] c_scrapValueColors = new RGBAColor[]
+        {
             new RGBAColor(0.5f, 0.5f, 0.5f, 1f),
             new RGBAColor(10, 187, 10, 1f),
             new RGBAColor(255, 0, 255, 1f),
@@ -124,7 +124,7 @@ namespace LethalMenu
         };
 
         public static CursorLockMode clm_lastCursorState = Cursor.lockState;
-        
+
 
         internal class Changelog
         {
@@ -183,7 +183,7 @@ namespace LethalMenu
                     string value = item.Value.GetType() == typeof(KeyControl) ? ((KeyControl) item.Value).keyCode.ToString() : item.Value.displayName;
 
                     keybinds.Add(key, value);
-                }   
+                }
 
                 foreach (var item in HackExtensions.ToggleFlags)
                 {
@@ -240,7 +240,6 @@ namespace LethalMenu
                 chams["Ship"] = b_chamsShip.ToString();
                 hackSettings["Chams"] = chams;
 
-                
 
                 colors["Background"] = JsonConvert.SerializeObject(c_background);
                 colors["Primary"] = JsonConvert.SerializeObject(c_primary);
@@ -269,6 +268,7 @@ namespace LethalMenu
                 settings["SliderWidth"] = i_sliderWidth.ToString();
                 settings["TextboxWidth"] = i_textboxWidth.ToString();
 
+                settings["GUISize"] = GUISize.ToString();
 
                 json["Language"] = Localization.Language.Name;
                 json["Colors"] = colors;
@@ -286,7 +286,6 @@ namespace LethalMenu
                 CreateConfigIfNotExists();
 
                 string jsonStr = File.ReadAllText(config);
-
 
                 JObject json = JObject.Parse(jsonStr);
 
@@ -439,15 +438,11 @@ namespace LethalMenu
 
                 }
 
-
-                
-
                 if (json.TryGetValue("KeyBinds", out JToken keybindsToken))
                 {
                     HackExtensions.KeyBinds.Clear();
 
                     ButtonControl[] mouseButtons = new ButtonControl[] { Mouse.current.leftButton, Mouse.current.rightButton, Mouse.current.middleButton, Mouse.current.forwardButton, Mouse.current.backButton };
-
 
                     foreach (var item in keybindsToken.ToObject<Dictionary<string, string>>())
                     {
@@ -464,14 +459,8 @@ namespace LethalMenu
                             if (mouseBtn == null && key == null) continue;
                             hack.SetKeyBind(mouseBtn ?? key);
                         }
-
-                            
-
-                        
                     }
                 }
-                
-
 
                 if(json.TryGetValue("Toggles", out JToken togglesToken))
                 {
@@ -488,12 +477,8 @@ namespace LethalMenu
 
                             hack.SetToggle(toggle);
                         }
-
-                        
                     }
                 }
-                
-
             }
 
             public static void RegenerateConfig()
@@ -504,8 +489,6 @@ namespace LethalMenu
                 HackExtensions.KeyBinds.Clear();
 
                 LoadConfig();
-
-
             }
         }
     }

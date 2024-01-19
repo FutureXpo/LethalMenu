@@ -5,7 +5,6 @@ namespace LethalMenu.Cheats
     [HarmonyPatch]
     internal class UnlimitedAmmo
     {
-
         [HarmonyPostfix]
         [HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.ShootGun))]
         public static void ShotgunShootGun(ShotgunItem __instance)
