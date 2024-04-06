@@ -17,6 +17,7 @@ namespace LethalMenu.Menu.Core
         public PopupMenu unlockableManagerWindow = new UnlockableManagerWindow(2);
         public PopupMenu itemManagerWindow = new ItemManagerWindow(3);
         public PopupMenu firstSetupManagerWindow = new FirstSetupManagerWindow(4);
+        public PopupMenu LootManager = new LootManager(5);
 
         private List<MenuTab> menuTabs = new List<MenuTab>();
         private int selectedTab = 0;
@@ -105,9 +106,13 @@ namespace LethalMenu.Menu.Core
             {
                 GUI.color = new Color(1f, 1f, 1f, Settings.f_menuAlpha);
                 windowRect = GUILayout.Window(0, windowRect, new GUI.WindowFunction(DrawContent), "Lethal Menu");
-                unlockableManagerWindow.Draw();
-                itemManagerWindow.Draw();
-                moonManagerWindow.Draw();
+                if (LethalMenu.localPlayer != null)
+                {
+                    unlockableManagerWindow.Draw();
+                    itemManagerWindow.Draw();
+                    moonManagerWindow.Draw();
+                    LootManager.Draw();
+                }
                 GUI.color = Color.white;
             }
         }
