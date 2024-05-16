@@ -20,7 +20,7 @@ namespace LethalMenu.Menu.Tab
         private string s_kbSearch = "";
 
         private Vector2 scrollPos = Vector2.zero;
-        private Vector2 kbScrollPos = Vector2.zero;
+        private Vector2 scrollPos2 = Vector2.zero;
 
         private string s_bgColor = Settings.c_background.GetHexCode();
         private string s_primaryColor = Settings.c_primary.GetHexCode();
@@ -40,6 +40,7 @@ namespace LethalMenu.Menu.Tab
         private string s_bigDoorESPColor = Settings.c_bigDoorESP.GetHexCode();
         private string s_shipESPColor = Settings.c_shipESP.GetHexCode();
         private string s_breakerESPColor = Settings.c_breakerESP.GetHexCode();
+        private string s_spikeRoofTrapESPColor = Settings.c_spikeRoofTrapESP.GetHexCode();
         private string s_causeOfDeath = Settings.c_causeOfDeath.GetHexCode();
 
         private string s_lootTierColors = string.Join(",", Array.ConvertAll(Settings.c_scrapValueColors, x => x.GetHexCode()));
@@ -84,7 +85,6 @@ namespace LethalMenu.Menu.Tab
                 new UIButton("SettingsTab.SaveSettings", () => Settings.Config.SaveConfig()),
                 new UIButton("SettingsTab.ReloadSettings", () => Settings.Config.LoadConfig())
             );
-            //UI.Checkbox("Debug Mode", ref Settings.isDebugMode);
 
             UI.Header("SettingsTab.General");
 
@@ -93,14 +93,15 @@ namespace LethalMenu.Menu.Tab
             UI.NumSelect("SettingsTab.FontSize", ref Settings.i_menuFontSize, 5, 30);
             UI.NumSelect("SettingsTab.SliderSize", ref Settings.i_sliderWidth, 50, 120);
             UI.NumSelect("SettingsTab.TextboxSize", ref Settings.i_textboxWidth, 50, 120);
-            UI.Slider("SettingsTab.MenuAlpha", Settings.f_menuAlpha.ToString("0.00"), ref Settings.f_menuAlpha, 0.1f, 1f);  
+            UI.Slider("SettingsTab.MenuAlpha", Settings.f_menuAlpha.ToString("0.00"), ref Settings.f_menuAlpha, 0.1f, 1f);
             UI.Button("SettingsTab.ResizeMenu", () => MenuUtil.BeginResizeMenu(), "SettingsTab.Resize");
             UI.Button("SettingsTab.ResetMenu", () => HackMenu.Instance.ResetMenuSize(), "General.Reset");
+            UI.Toggle("SettingsTab.DebugMode", ref Settings.isDebugMode, "General.Disable", "General.Enable" );
         }
 
         private void ControlSettingsContent()
         {
-            UI.Header("SettingsTab.Control");
+            UI.Header("SettingsTab.MouseControl");
 
             UI.Slider("SettingsTab.mouseSens", Settings.f_mouseSensitivity.ToString("0.00"), ref Settings.f_mouseSensitivity, 0.1f, 1f);
             UI.Slider("SettingsTab.movementSpeed", Settings.f_inputMovementSpeed.ToString("0"), ref Settings.f_inputMovementSpeed, 10, 30);
@@ -109,14 +110,15 @@ namespace LethalMenu.Menu.Tab
         private void VisualSettingsContent()
         {
             UI.Header("SettingsTab.Visual");
-         
+
             UI.Slider("SettingsTab.MaxESP", Settings.f_espDistance.ToString("0") + "m", ref Settings.f_espDistance, 0, 10000);
             UI.Slider("SettingsTab.MinCham", Settings.f_chamDistance.ToString("0") + "m", ref Settings.f_chamDistance, 0, 100);
             UI.Slider("SettingsTab.CrosshairScale", Settings.f_crosshairScale.ToString("0.00"), ref Settings.f_crosshairScale, 4f, 24f);
             UI.Slider("SettingsTab.CrosshairThickness", Settings.f_crosshairThickness.ToString("0.00"), ref Settings.f_crosshairThickness, 1f, 5f);
             UI.Select("SettingsTab.CrosshairType", ref i_selectedCrosshairIndex,
                 new UIOption("X", () => Settings.ct_crosshairType = CrosshairType.X),
-                new UIOption("+", () => Settings.ct_crosshairType = CrosshairType.Plus)
+                new UIOption("+", () => Settings.ct_crosshairType = CrosshairType.Plus),
+                new UIOption("*", () => Settings.ct_crosshairType = CrosshairType.Dot)
             );
             UI.Slider("SettingsTab.BreadcrumbInterval", Settings.f_breadcrumbInterval.ToString(), ref Settings.f_breadcrumbInterval, 1f, 10f);
             UI.Slider("SettingsTab.NVIntensity", Settings.f_nvIntensity.ToString(), ref Settings.f_nvIntensity, Settings.f_defaultNightVisionIntensity, 10000f);
@@ -144,6 +146,7 @@ namespace LethalMenu.Menu.Tab
             UI.Checkbox("SettingsTab.SteamValves", ref Settings.b_chamsSteamHazard);
             UI.Checkbox("SettingsTab.BigDoors", ref Settings.b_chamsBigDoor);
             UI.Checkbox("SettingsTab.LockedDoors", ref Settings.b_chamsDoorLock);
+            UI.Checkbox("SettingsTab.SpikeRoofTrap", ref Settings.b_chamsSpikeRoofTrap);
             GUILayout.EndVertical();
 
             GUILayout.EndHorizontal();
@@ -228,6 +231,9 @@ namespace LethalMenu.Menu.Tab
                 new UIButton("General.Set", () => SetColor(ref Settings.c_breakerESP, s_breakerESPColor))
             );
 
+            UI.TextboxAction("SettingsTab.SpikeRoofTrap", ref s_bigDoorESPColor, @"[^0-9A-Za-z]", 8,
+                new UIButton("General.Set", () => SetColor(ref Settings.c_spikeRoofTrapESP, s_spikeRoofTrapESPColor))
+            );
 
             UI.Header("SettingsTab.TieredLootHeader", true);
             if (s_tierColorError != "") UI.Label(s_tierColorError, Settings.c_error);
@@ -245,13 +251,12 @@ namespace LethalMenu.Menu.Tab
 
         private void KeybindContent()
         {
-
             UI.Header("SettingsTab.Keybinds");
 
             if (s_kbError != "") UI.Label(s_kbError, Settings.c_error);
 
             GUILayout.BeginVertical();
-            kbScrollPos = GUILayout.BeginScrollView(kbScrollPos);
+            scrollPos2 = GUILayout.BeginScrollView(scrollPos2);
             UI.Textbox("General.Search", ref s_kbSearch, big: false);
 
             List<Hack> hacks = Enum.GetValues(typeof(Hack)).Cast<Hack>().ToList().FindAll(x => x.ToString().ToLower().Contains(s_kbSearch.ToLower()));
@@ -270,17 +275,13 @@ namespace LethalMenu.Menu.Tab
                 GUILayout.FlexibleSpace();
 
                 if (hack.HasKeyBind() && hack != Hack.OpenMenu && hack != Hack.UnlockDoorAction && GUILayout.Button("-")) hack.RemoveKeyBind();
-
                 string btnText = hack.IsWaiting() ? "Waiting" : kb;
                 if (GUILayout.Button(btnText, GUILayout.Width(85))) KBUtil.BeginChangeKeyBind(hack);
-
 
                 GUILayout.EndHorizontal();
             }
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
-
-
         }
 
         private void SetColor(ref RGBAColor color, string hexCode)
@@ -294,23 +295,19 @@ namespace LethalMenu.Menu.Tab
         {
             int[] thresholds = Array.ConvertAll(s_lootTiers.Split(','), x => int.TryParse(x, out int i) ? i : 0);
             RGBAColor[] rgbaColors = Array.ConvertAll(s_lootTierColors.Split(','), x => new RGBAColor(x));
-
             if (thresholds.Length != rgbaColors.Length)
             {
                 s_tierColorError = "SettingsTab.TierColorError";
                 return;
             }
-
             Settings.i_scrapValueThresholds = thresholds;
             Settings.c_scrapValueColors = rgbaColors;
-
             Settings.Config.SaveConfig();
         }
 
         private string GetTiersColored()
         {
             string[] tiers = new string[Settings.i_scrapValueThresholds.Length];
-
             for (int i = 0; i < Settings.i_scrapValueThresholds.Length; i++)
             {
                 int threshold = Settings.i_scrapValueThresholds[i];
@@ -318,7 +315,6 @@ namespace LethalMenu.Menu.Tab
 
                 tiers[i] = color.AsString(threshold.ToString());
             }
-
             return string.Join(",", tiers);
         }
     }

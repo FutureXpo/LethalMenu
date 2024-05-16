@@ -5,19 +5,20 @@ using LethalMenu.Menu.Popup;
 using LethalMenu.Menu.Tab;
 using LethalMenu.Util;
 using System.Linq;
-using UnityEngine.Experimental.Rendering;
 
 namespace LethalMenu.Menu.Core
 {
     internal class HackMenu : MenuFragment
     {
+        private Vector2 scrollPos = Vector2.zero;
         public Rect windowRect = new Rect(50f, 50f, 700f, 450f);
 
-        public PopupMenu moonManagerWindow = new MoonManagerWindow(1);
-        public PopupMenu unlockableManagerWindow = new UnlockableManagerWindow(2);
-        public PopupMenu itemManagerWindow = new ItemManagerWindow(3);
-        public PopupMenu firstSetupManagerWindow = new FirstSetupManagerWindow(4);
-        public PopupMenu LootManager = new LootManager(5);
+        public PopupMenu MoonManagerWindow = new MoonManagerWindow(1);
+        public PopupMenu UnlockableManagerWindow = new UnlockableManagerWindow(2);
+        public PopupMenu ItemManagerWindow = new ItemManagerWindow(3);
+        public PopupMenu FirstSetupManagerWindow = new FirstSetupManagerWindow(4);
+        public PopupMenu LootManagerWindow = new LootManagerWindow(5);
+        public PopupMenu WeatherManagerWindow = new WeatherManagerWindow(5);
 
         private List<MenuTab> menuTabs = new List<MenuTab>();
         private int selectedTab = 0;
@@ -27,9 +28,8 @@ namespace LethalMenu.Menu.Core
         public int spaceFromTop = 60;
         public int spaceFromLeft = 10;
 
-        private Vector2 scrollPos = Vector2.zero;
-
         private static HackMenu instance;
+
         public static HackMenu Instance
         {
             get
@@ -39,6 +39,7 @@ namespace LethalMenu.Menu.Core
                 return instance;
             }
         }
+
         public HackMenu()
         {
             instance = this;
@@ -61,7 +62,7 @@ namespace LethalMenu.Menu.Core
         {
             windowRect.width = Settings.i_menuWidth;
             windowRect.height = Settings.i_menuHeight;
-            contentWidth = windowRect.width - (spaceFromLeft*2);
+            contentWidth = windowRect.width - (spaceFromLeft * 2);
             contentHeight = windowRect.height - spaceFromTop;
         }
 
@@ -101,17 +102,18 @@ namespace LethalMenu.Menu.Core
         {
             if (Settings.isFirstLaunch || Settings.isMenuOpen) Stylize(); else return;
 
-            if (Settings.isFirstLaunch) firstSetupManagerWindow.Draw();
+            if (Settings.isFirstLaunch) FirstSetupManagerWindow.Draw();
             else
             {
                 GUI.color = new Color(1f, 1f, 1f, Settings.f_menuAlpha);
                 windowRect = GUILayout.Window(0, windowRect, new GUI.WindowFunction(DrawContent), "Lethal Menu");
                 if (LethalMenu.localPlayer != null)
                 {
-                    unlockableManagerWindow.Draw();
-                    itemManagerWindow.Draw();
-                    moonManagerWindow.Draw();
-                    LootManager.Draw();
+                    UnlockableManagerWindow.Draw();
+                    ItemManagerWindow.Draw();
+                    MoonManagerWindow.Draw();
+                    LootManagerWindow.Draw();
+                    WeatherManagerWindow.Draw();
                 }
                 GUI.color = Color.white;
             }

@@ -14,7 +14,6 @@ namespace LethalMenu.Handler
 {
     public class ChamHandler
     {
-        //private static Dictionary<int, List<Renderer>> renderers = new Dictionary<int, List<Renderer>>();
         private static Dictionary<int, Material[]> materials = new Dictionary<int, Material[]>();
         private static Material m_chamMaterial;
         private static int _color;
@@ -85,12 +84,15 @@ namespace LethalMenu.Handler
             if (@object is DoorLock) e = Settings.b_chamsDoorLock;
             if (@object is HangarShipDoor) e = Settings.b_chamsShip;
             if (@object is BreakerBox) e = Settings.b_chamsBreaker;
+            if (@object is SpikeRoofTrap) e = Settings.b_chamsSpikeRoofTrap;
 
-            if(e && distance >= Settings.f_chamDistance) ApplyCham();
+            if (e && distance >= Settings.f_chamDistance) ApplyCham();
             else RemoveCham();
 
-            if ((@object is GrabbableObject && ((GrabbableObject)@object).isHeld)
-                || (@object is SteamValveHazard && !((SteamValveHazard)@object).triggerScript.interactable)) RemoveCham();
+            if (   (@object is GrabbableObject && ((GrabbableObject)@object).isHeld)
+                || (@object is SteamValveHazard && !((SteamValveHazard)@object).triggerScript.interactable)
+
+            ) RemoveCham();
         }
 
         public void ApplyCham()
@@ -132,7 +134,6 @@ namespace LethalMenu.Handler
                 int cnt = 0;
                 List<int> keep = new List<int>();
                 Object.FindObjectsOfType<Renderer>().ToList().ForEach(r => keep.Add(r.GetInstanceID()));
-
                 materials.Keys.ToList().FindAll(k => !keep.Contains(k)).ForEach(k => { materials.Remove(k); cnt++; }) ;
             }
         }
